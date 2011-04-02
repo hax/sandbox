@@ -1,5 +1,5 @@
-var usingBackground = false
-var usingCanvasBG = true
+var usingBackground = true
+var usingCanvasBG = false
 
 var supportCanvasToDataURL = false, ImgData = {}
 
