@@ -1,5 +1,5 @@
 // 小球数量
-var ballNum=60;
+var ballNum=30;
 //画布宽高 
 var width=480 , height=300;
 // 期望帧频
