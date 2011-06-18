@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Microtypography Demo</title>
+<style>
+#sample {
+	width: 624px;
+	height: 400px;
+	-moz-column-width: 300px;
+	-moz-column-gap: 24px;
+	-webkit-column-width: 300px;
+	-webkit-column-gap: 24px;
+	columns: 300px;
+}
+
+#pagebox {
+	outline: 1px solid;
+}
+
+#sample blockquote {
+	margin-left: 2em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+#sample .poem p {
+	text-indent: 0;
+}
+</style>
+<script>
+
+/*
+http://unicode.org/reports/tr11/
+
+1100..115F
+11A3..11A7
+11FA..11FF
+2329,232A
+2E80..4DBF (N 303F, A 3248..324F)
+4E00..A4CF
+A960..A97F
+AC00..D7FF
+F900..FAFF
+FE10..FE1F
+FE30..FE6F
+FF01..FF60
+FFE0..FFE7
+1F200..3FFFF
+*/
+
+String.FULLWIDTH_PATTERN = /[\u1100-\u115F\u11A3-\u11A7\u11FA-\u11FF\u2329\u232A\u2E80-\u303E\u3040-\u4DBF\u4E00-\uA4CF\uA960-\uA97F\uAC00-\uD7FF\uF900-\uFAFF\uFE10-\uFE1F\uFE30-\uFE6F\uFF01-\uFF60\uFFE0-\uFFE7]/
+function isFullwidth(c) {
+	return String.FULLWIDTH_PATTERN.test(c)
+}
+
+var ArticleStyle = {
+	fontFamily: '-Palatino Linotype, 文泉驿微米黑, 微软雅黑, 微軟正黑, sans-serif',
+	fontSize: '22px',
+	lineHeight: 1.618,
+	textAlign: 'justify',
+	textAlignLast: 'start',
+	textJustify: 'auto',
+	punctuationTrim: 'start allow-end adjacent',
+	hangingPunctuation: 'none',
+	wordBreak: 'normal',
+	textRending: 'optimizeLegibility',
+	//hyphenation: '',
+	//letterSpacing: 'normal',
+	wordSpacing: '0',
+}
+var BlockStyle = {
+	marginTop: '0.5em',
+	marginBottom: '0.5em',
+	pageBreakInside: 'auto',
+	widows: 2,
+	orphans: 2,
+	orphanedWords: 2,
+}
+var ParaStyle = {
+	textIndent: '2em', 
+	textEndIndent: '1em',
+}
+
+function setStyle(sel, decl) {
+	
+	var styleId = 'microtypographySettings'
+	var style = document.getElementById(styleId)
+	if (style == null) {
+		style = document.createElement('style')
+		style.id = styleId
+		document.getElementsByTagName('head')[0].appendChild(style)
+	}
+	
+	var s
+	for (var rules = style.sheet.cssRules, n = rules.length, i = 0; i < n; i++) {
+		if (rules[i].selectorText == sel) {
+			s = rules[i].style
+			break
+		}
+	}
+	if (s == null) s = style.sheet.cssRules[style.sheet.insertRule(sel + '{}', null)].style
+	
+	for (var k in decl) {
+		if (decl.hasOwnProperty(k)) {
+			s[k] = decl[k]
+		}
+	}
+}
+
+setStyle('#sample', ArticleStyle)
+setStyle('#sample p, #sample blockquote, #sample ol, #sample ul', BlockStyle)
+setStyle('#sample p', ParaStyle)
+
+//alert(document.styleSheets[1].cssRules[0].cssText)
+
+function renderText(text) {
+	var canvas = document.getElementById('pagebox') 
+	var ctx = canvas.getContext('2d')
+	//alert(canvas.width + 'x' + canvas.height)
+	//ctx.fillRect(0,0,50,50);
+	//canvas.setAttribute('width', '300'); // clears the canvas 
+	//ctx.fillRect(0,100,50,50);
+	//canvas.width = canvas.width;         // clears the canvas 
+	//ctx.fillRect(100,0,50,50);       // only this square remains
+	
+	ctx.font = parseInt(ArticleStyle.fontSize, 10) + 'px ' + ArticleStyle.fontFamily
+	//ctx.textAlign = 'start'
+	ctx.fillStyle = 'black'
+	//ctx.shadowColor = 'rgba(0,0,0,0.5)'
+	//ctx.shadowBlur = 2
+	//ctx.shadowOffsetX = 0
+	//ctx.shadowOffsetY = 0 
+	
+	var spaceWidth = ctx.measureText(' ').width
+	var fullWidth = ctx.measureText('　').width
+	
+	var wordBreakPattern = /\s+/g
+	
+	var layoutData = []
+	
+	var i = 0, r
+	do {
+		r = wordBreakPattern.exec(text)
+		var word = r ? text.slice(i, r.index) : text.slice(i)
+		i = wordBreakPattern.lastIndex
+		var width = ctx.measureText(word).width
+		layoutData.push({
+				word: word, width: width
+		})
+	} while(r)
+	
+	var fontSize = parseInt(ArticleStyle.fontSize, 10)
+	var lineHeight = fontSize * ArticleStyle.lineHeight 
+	var x = 0, y = fontSize, spaceCount = 0
+	
+	for (var i = 0, i1 = 0, i2; i < layoutData.length; i++) {
+		var l = layoutData[i]
+		var x2 = x + l.width 
+		if (x2 > 300) {
+			var dx1 = 300 - x
+			var dx2 = x2 - 300
+			if (dx1 < dx2 || dx2 / spaceCount > spaceWidth * 0.05) {
+				dx = dx1
+				i2 = i
+				x = l.width + spaceWidth
+			} else {
+				dx = -dx2
+				i2 = i + 1
+				x = 0
+			}
+			//alert(i1 + ' ' + i2 + ' ' + spaceCount)
+			var sw = spaceWidth + dx / spaceCount
+			for (var xx = 0, j = i1; j < i2; j++) {
+				l = layoutData[j]
+				ctx.fillText(l.word, xx, y)
+				//ctx.fillText(l.word, xx, y, l.width + dx / spaceCount)
+				xx += l.width + sw
+			}
+			y += lineHeight
+			i1 = i2
+			spaceCount = 0
+		} else {
+			x = x2 + spaceWidth
+			spaceCount++
+		}
+		//alert(l.word)
+	}
+}
+
+window.onload = function () {
+	//renderText('Hello world! This is only a ffine test! ')
+	renderText(document.getElementById('sample').textContent)
+}
+</script>
+</head>
+<body>
+
+<!--
+<div lang="en" style="font: italic 64px 'Palatino linotype'">
+<p>test<br>
+<span>Tgffffi我我</span><br>
+<span>T我gf我fffi</span><br>
+</div>
+-->
+
+<div id="sample">
+
+<p>At Manor Farm in England, Farmer Jones swills whiskey and abuses his animals–including pigs, chickens, ducks, sheep, goats, horses, and dogs. One evening, Old Major, a wise pig who is dying, sows the seeds of revolution. He tells his barnyard comrades that they can enjoy peace and prosperity, every animal sharing equally in the benefits of the farm, if they overthrow Jones and run the farm themselves. The old pig even teaches them a rallying song:
+<blockquote class="poem">
+	<p>Beasts of England, beasts of Ireland,<br>
+	Beasts of every land and clime,<br>
+	Hearken to my joyful tidings<br>
+	Of the golden future time.<br></p>
+	<p>Soon or late the day is coming,<br>
+	Tyrant Man shall be o’erthrown,<br>
+	And the fruitful fields of England<br>
+	Shall be trod by beasts alone.<br></p>
+</blockquote>
+
+<p>Days later, after Old Major dies, the animals plot the rebellion, led by the most intelligent among them, the pigs–in particular, Snowball, Napoleon, and Squealer. The government system they design is called “animalism.” While the planning continues, Farmer Jones goes on a drunken binge and neglects to feed the animals. On the second day of his drinking bout, they break into the feed stores and attack and drive off Jones, his wife, and his workers. At the entrance of the farm, they put up a new sign. In bold letters, it says "Animal Farm."</p> 
+<p>The revolution has succeeded. A new day has dawned. Napoleon and Snowball then present the seven commandments that make up their constitution:</p>
+
+<ol>
+<li>Whatever goes upon two legs is an enemy. 
+<li>Whatever goes upon four legs, or has wings, is a friend.
+<li>No animal shall wear clothes. 
+<li>No animal shall sleep in a bed. 
+<li>No animal shall drink alcohol. 
+<li>No animal shall kill another animal. 
+<li>All animals are created equal.
+</ol>
+
+<p>All goes well. Only Benjamin, a donkey, and Mollie, a mare, seem dissatisfied. Benjamin, an old cynic, believes nothing will really change. Mollie, a mare who pulled Mr. Jones’s buggy, yearns for the attention–and the sugar cubes–she received from human beings. The rest of the animals enthusiastically embrace the new order. Boxer, a cart horse, adopts a slogan: “I will work harder.” Special committees–including The Egg Production Committee for Chickens and The Clean Tails League for Cows–form to improve the animals’ way of life. The animals also design and raise their own flag and take the time to explain and simplify the rules for animals with low intelligence, such as the sheep. Animals at other farms hear about Animal Farm and are heartened.
+<p>After a time, the pigs reserve the apple crop and the cows’ milk for themselves because of the enormous energy they must expend on setting policy and administrating the day-to-day operation of the farm. 
+<p>When Farmer Jones attempts to reclaim the farm, the animals drive him off in the Battle of the Cowshed. Boxer and Snowball earn medals of valor. 
+<p>Just when the animals think nothing can go wrong, Napoleon and Snowball quarrel over policy, including Snowball’s proposal to construct a windmill to provide energy. Napoleon then unleashes a pack of vicious dogs, which he trained from puppyhood, on Snowball. They chase him off the farm, leaving Napoleon in control, with Squealer as his fawning supporter and propagandist. Thereafter, Napoleon keeps the attack dogs at his side to intimidate malcontents and keep order. Napoleon then dissolves the animal committees, saying the pigs will do all the thinking, and goes ahead with the windmill project that he earlier opposed. 
+<p>When a storm topples the windmill, Napoleon says Snowball sneaked back onto the farm and sabotaged it. He sets a bounty for his capture and executes animals accused of conspiring with snowball. 
+<p>Under Napoleon, hours are long and hard and work becomes drudgery. The pigs move into Jones’s house, altering the constitution to say that “No animal shall sleep in a bed with sheets.” They drink beer and whiskey and conduct trade with humans. Squealer justifies these and other forbidden activities by amending the constitution again and again. A poem extolling Napoleon appears on the side of the barn.
+<p>While the pigs live in luxury, the other animals work their paws and hoofs to the bone as they till the fields and rebuild the windmill, all the while barely getting enough to eat. To raise capital, Napoleon sells timber to the operator of the neighboring Pinchfield Farm, Mr. Frederick, who pays with counterfeit bank notes. When Napoleon realizes he has been duped, he pronounces a death sentence on Frederick. Frederick then attacks the farm, blowing up the second windmill, but the animals repel his forces in a fierce battle in which Boxer suffers debilitating injuries. 
+<p>After his health declines and he falls on the job, Boxer disappears from the farm. Squealer says he died in peace in a hospital, a true and loyal animalist to the end. In truth, Napoleon sold Boxer to a glue factory for money to buy whiskey.
+<p>In time, the pigs become more and more like the humans they overthrew, walking upright on two legs, wearing clothes, and even entertaining humans at dinners. Eventually, the clause “All animals are created equal” becomes “All animals are created equal, but some animals are more equal.”
+<p>Napoleon declares that Manor Farm should be the proper name for the business enterprise after all, then replaces the Animal Farm sign with the correct one. Life goes on, with the “human” pigs in full control. 
+<p>故事发生在曼纳庄园里。这天晚上，庄园的主人琼斯先生说是已经锁好了鸡棚，但由于他喝得醉意十足，竟把里面的那些小门都忘了关上。他提着马灯踉踉跄跄地穿过院子，马灯光也跟着一直不停地晃来晃去，到了后门，他把靴子一脚一只踢了出去，又从洗碗间的酒桶里舀起最后一杯啤酒，一饮而尽，然后才上床休息。此时，床上的琼斯夫人已是鼾声如雷了。
+<p>等那边庄主院卧室里的灯光一熄灭，整个庄园窝棚里就泛起一阵扑扑腾腾的骚动。还在白天的时候，庄园里就风传着一件事，说是老麦哲，就是得过“中等白鬃毛”奖的那头雄猪，在前一天晚上作了一个奇怪的梦，想要传达给其他动物。老麦哲（他一直被这样称呼，尽管他在参加展览时用的名字是“威灵顿美神”）在庄园了一直德高望重，所以动物们为了聆听他想要讲的事情，都十分乐意牺牲一小时的睡眠。当时，大家都已经同意，等琼斯先生完全走开后，他们就到大谷仓内集合。
+<p>在大谷仓一头一个凸起的台子上，麦哲已经安稳地坐在草垫子上了，在他头顶上方的房梁上悬挂着一盏马灯。他已经十二岁了，近来长得有些发胖，但他依然仪表堂堂。尽管事实上他的犬牙从来没有割剪过，这也并不妨碍他面带着智慧和慈祥。不一会，动物们开始陆续赶来，并按各自不同的方式坐稳了。最先到来的是三条狗，布鲁拜尔、杰西和平彻，猪随后走进来，并立即坐在台子前面的稻草上。鸡栖在窗台上，鸽子扑腾上了房梁，羊和牛躺在猪身后并开始倒嚼起来。两匹套四轮货车的马，鲍克瑟和克拉弗，一块赶来，他们走进时走得很慢，每当他们在落下那巨大的毛乎乎的蹄子时，总是小心翼翼，生怕草堆里藏着什么小动物。克拉弗是一匹粗壮而慈爱的母马，接近中年。她在生了第四个小驹之后，体形再也没有能恢复原样。鲍克瑟身材高大，有近两米高的个头，强壮得赛过两匹普通马相加，不过，他脸上长了一道直到鼻子的白毛，多少显得有些戆相。实际上，他确实不怎么聪明，但他坚韧不拔的个性和干活时那股十足的劲头，使他赢得了普遍的尊敬。跟着马后面到的是白山羊穆丽尔，还有那头驴，本杰明。本杰明是庄园里年龄最老的动物，脾气也最糟，他沉默寡言，不开口则已，一开口就少不了说一些风凉话。譬如，他会说上帝给了他尾巴是为了驱赶苍蝇，但他却宁愿没有尾巴也没有苍蝇。庄园里的动物中，唯有他从来没有笑过，要问为什么，他会说他没有看见什么值得好笑的。然而他对鲍克瑟却是真诚相待，只不过没有公开承认罢了。通常，他俩总是一起在果园那边的小牧场上消磨星期天，肩并着肩，默默地吃草。
+<p>这两匹马刚躺下，一群失去了妈妈的小鸭子排成一溜进了大谷仓，吱吱喳喳，东张西望，想找一处不会被踩上的地方。克拉弗用她粗壮的前腿象墙一样地围住他们，小鸭子偎依在里面，很快就入睡了。莫丽来得很晚，这个愚蠢的家伙，长着一身白生生的毛，是一匹套琼斯先生座车的母马。她扭扭捏捏地走进来，一颠一颠地，嘴里还嚼着一块糖。她占了个靠前的位置，就开始抖动起她的白鬃毛，试图炫耀一番那些扎在鬃毛上的红饰带。猫是最后一个来的，她象往常一样，到处寻找最热乎的地方，最后在鲍克瑟和克拉弗当中挤了进去。在麦哲讲演时，她在那儿自始至终都得意地发出“咕咕噜噜”的声音，压根儿没听进麦哲讲的一个字。
+</div>
+
+<canvas id="pagebox" width="624" height="400"></canvas>
+
+</body>
+</html>
