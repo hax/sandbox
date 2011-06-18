@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+<title>PDF Demo</title>
+
+<style>
+body, button {
+	font-size: 22px;
+}
+img#origin { width:30px; height:40px; }
+#myCanvas { width:0; height:0; }
+#screen {
+	width:588px; height:784px;
+	border: 2px inset;
+	border-radius: 4px;
+	padding: 8px 6px;
+}
+</style>
+
+<script src="/b3s/bbtest.js"></script>
+
+<script>
+
+/*function PageAnalyzer() {
+}
+PageAnalyzer.prototype.detectMargins*/
+
+var originData
+var pageData
+
+window.onload = function () {
+	originData = getPageData('pdf-sample')
+	if (originData == null) throw 'can\'t get image data'
+	
+	var start = new Date(), d = originData.data, b, b1, b2, b3, b4
+	var i = 0, n = d.length
+	while (i < n) {
+		b1 = d[i]
+		b2 = d[i + 1]
+		b3 = d[i + 2]
+		b4 = d[i + 3]
+		i += 4
+	}
+	out(d.length)
+	out(new Date() - start)
+}
+
+function getPageData(name) {
+	var origin = document.getElementById('origin')
+	var ctx = document.getElementById('myCanvas').getContext('2d')
+	ctx.canvas.width = origin.naturalWidth
+	ctx.canvas.height = origin.naturalHeight
+	//out(origin.naturalWidth, origin.naturalHeight)
+	ctx.drawImage(origin, 0, 0)
+	return ctx.getImageData(0, 0, origin.naturalWidth, origin.naturalHeight)
+}
+
+
+
+
+var ScreenRatio = 0.75
+
+var PageDistortion = 0.1
+var SpaceDistortion = 0.5
+
+var PageDistortion = 0.0625
+var SpaceDistortion = 0.5
+
+	
+function updateScreen(data, x, y, w, h, lines) {
+	
+	if (!x) x = 0
+	if (!y) y = 0
+	if (!w) w = data.width
+	if (!h) h = data.height
+	if (lines) h -= lines[lines.length - 1].off * SpaceDistortion
+	
+	var cw = w, ch = h, x0 = -x, y0 = -y
+	
+	if (cw / ch < ScreenRatio) {
+		cw = Math.max(w, ch * ScreenRatio * (1 - PageDistortion))
+		x0 -= (w - cw) / 2
+	} else {
+		ch = Math.max(h, cw / ScreenRatio * (1 - PageDistortion))
+		y0 -= (h - ch) / 2
+	}
+	
+	//console.debug('x*y', x0, y0, w, h, cw, ch)
+	
+	var ctx = document.getElementById('screen').getContext('2d')
+	
+	ctx.canvas.width = cw
+	ctx.canvas.height = ch
+	
+	var info = document.getElementById('info')
+	info.innerHTML = (Math.sqrt((data.width * data.height) / (cw * ch)) * 100).toFixed(2) + '%'
+	
+	
+	if (!lines) {
+		ctx.putImageData(data, x0, y0, x, y, w, h)
+	} else {
+		lines.forEach(function(c) {
+			ctx.putImageData(data, x0, y0 - c.off * SpaceDistortion, x, c.dy, w, c.dh)
+		})
+	}
+
+}
+
+function showOrigin() {
+	updateScreen(originData)
+}
+
+var ColorDiff_Threshold = 34 // 0 ~ 510
+var Content_Min_Divergence = 9
+
+function cutEdge() {
+	//out('cutEdge')
+	var top = 0, bottom = 0, left = 0, right = 0
+	var data =  originData.data, width = originData.width, height = originData.height
+	
+	var qw = width / 4, qh = height / 4
+	
+	out(top, bottom, left, right, width, height)
+	
+	cutTB(true)
+	
+	//console.log(top, bottom, left, right, width, height)
+	out(top, bottom, left, right, width, height)
+	
+	updateScreen(originData, left, top, width - left - right, height - top - bottom)
+	
+	return {
+		top: top, right: right, bottom: bottom, left: left, 
+	}
+	
+
+	function cutTB(flag) {
+		var d = top + bottom
+		while (top < qh && checkH(top)) {
+			//cutH(top)
+			top++
+		}
+		while (bottom < qh && checkH(height - bottom - 1)) {
+			//cutH(height - bottom - 1)
+			bottom++
+		}
+		//console.debug(top, bottom)
+		out(top, bottom)
+		if (flag || top + bottom > d) cutLR()
+	}
+	function cutLR(flag) {
+		var d = left + right
+		while (left < qw && checkV(left)) {
+			//cutV(left)
+			left++
+		}
+		while (right < qw && checkV(width - right - 1)) {
+			//cutV(width - right - 1)
+			right++
+		}
+		//console.debug(left, right)
+		out(left, right)
+		if (flag || left + right > d) cutTB()
+	}
+	
+	function cutH(y) {
+		//console.log('cutH', y)
+		var p = y * width * 4, end = (y + 1) * width * 4
+		while(p < end) {
+			data[p] = data[p + 1] = data[p + 2] = data[p + 3] = 0
+			p += 4
+		}
+	}
+	function cutV(x) {
+		//console.log('cutV', x)
+		var p = x * 4, end = height * width * 4
+		while(p < end) {
+			data[p] = data[p + 1] = data[p + 2] = data[p + 3] = 0
+			p += width * 4
+		}
+	}
+	
+	function checkH(y) {
+		//console.log('checkH', y)
+		out('checkH', y)
+		var count = 0
+		var p = (y * width + left) * 4, end = ((y + 1) * width - right) * 4
+		var currentColor = [data[p], data[p + 1], data[p + 2], data[p + 3]], nextColor
+		while(p < end) {
+			nextColor = [data[p], data[p + 1], data[p + 2], data[p + 3]]
+			if (diff(currentColor, nextColor) > ColorDiff_Threshold) {
+				if (count >= Content_Min_Divergence)
+				//console.log((p / 4) % width, Math.floor(p / 4 / width), currentColor, nextColor)
+					return false
+				else count++
+			}
+			currentColor = nextColor
+			p += 4
+		}
+		return true
+	}
+	function checkV(x) {
+		//console.log('checkV', x)
+		out('checkV', x)
+		var count = 0
+		var p = (top * width + x) * 4, end = (height - bottom) * width * 4
+		var currentColor = [data[p], data[p + 1], data[p + 2], data[p + 3]], nextColor
+		while(p < end) {
+			nextColor = [data[p], data[p + 1], data[p + 2], data[p + 3]]
+			if (diff(currentColor, nextColor) > ColorDiff_Threshold) {
+				if (count >= Content_Min_Divergence)
+				//console.log('checkV', p / 4 % width, Math.floor(p / 4 / width), currentColor, nextColor)
+					return false
+				else count++
+			}
+			currentColor = nextColor
+			p += width * 4
+		}
+		return true
+	}
+}
+
+
+function diff(a, b) {
+	var sum = 0
+	for (var i = 0; i < a.length; i++) {
+		sum += (a[i] - b[i]) * (a[i] - b[i])
+	}
+	return Math.sqrt(sum)
+}
+
+
+function rescaleContent() {
+	var data =  originData.data, width = originData.width, height = originData.height
+	
+	var s = cutEdge()
+	var left = s.left, right = s.right, top = s.top, bottom = s.bottom
+	console.log(top, right, bottom, left)
+	
+	var content = []
+	
+	var offsetY = 0, isContent = false, start = top
+	
+	for (var i = top; i < height - bottom; i++) {
+		//console.log(i)
+		if (checkH(i)) {
+			if (isContent) {
+				//console.log('start white', i)
+				isContent = false
+				content.push({off:offsetY, dy:start, dh:i - start})
+				start = i
+			}
+		} else { // is content
+			if (!isContent) {
+				//console.log('start content', i)
+				isContent = true
+				//offsetY += Math.floor((i - start) * SpaceDistortion)
+				offsetY += i - start
+				start = i
+			}
+		}
+		
+	}
+	if (isContent) {
+		content.push({off:offsetY, dy:start, dh:i - start})
+	}
+	//content.height = height - top - bottom - offsetY
+	
+	//console.log(content, offsetY)
+	updateScreen(originData, left, top, width - left - right, height - top - bottom, content)
+	
+	
+
+	
+	function checkH(y) {
+		//console.log('checkH', y)
+		var count = 0
+		var p = (y * width + left) * 4, end = ((y + 1) * width - right) * 4
+		var currentColor = [data[p], data[p + 1], data[p + 2], data[p + 3]], nextColor
+		while(p < end) {
+			nextColor = [data[p], data[p + 1], data[p + 2], data[p + 3]]
+			if (diff(currentColor, nextColor) > ColorDiff_Threshold) {
+				if (count >= Content_Min_Divergence)
+				//console.log((p / 4) % width, Math.floor(p / 4 / width), currentColor, nextColor)
+					return false
+				else count++
+			}
+			currentColor = nextColor
+			p += 4
+		}
+		return true
+	}
+}
+
+</script>
+</head>
+
+<body>
+
+<p>
+<button onclick="showOrigin();">Show origin</button><br>
+<button onclick="cutEdge();">Cut edge</button><br>
+
+<!--
+<button onclick="removeDecorations()">Remove decorations</button>
+-->
+<button onclick="console.time('rescale content'); rescaleContent(); console.timeEnd('rescale content');">Rescale content</button><br>
+
+<button onclick="rescaleContent();">2 screen per page</button>
+</p>
+<p>
+<div id="info"></div>
+</p>
+
+<img id="origin" src="pdf_sample0.png">
+
+<canvas id="myCanvas"></canvas>
+
+<canvas id="screen"></canvas>
+
+
+</body>
+
+</html>
