@@ -1,9 +1,9 @@
 // 小球数量
-var ballNum=60;
+var ballNum=100;
 //画布宽高 
 var width=480 , height=300;
 // 期望帧频
-var FPS=200;
+var FPS=100;
 
 // canvas画线的颜色
 var strokeColor="#000";
