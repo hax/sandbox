@@ -1,0 +1,39 @@
+<!doctype html>
+<title>Rabbits</title>
+
+<script src="simulation.js"></script>
+<script src="simple.js"></script>
+
+<p>一对小兔子一年后长成大兔子；一对大兔子每半年生一对小兔子。大兔子的繁殖期为4年，兔子的寿命是6年。假定第一年年初投放了一对小兔子，试编程计算，第n年末总共会有多少对兔子。（<a href="http://www.cnblogs.com/zuozuo/archive/2011/09/18/2180426.html">http://www.cnblogs.com/zuozuo/archive/2011/09/18/2180426.html</a>）
+
+<form>
+	<p>
+		<label for="years">n = </label>
+		<input id="years" type="number" value="12" size="2">
+	<p>
+		<label for="result">result = </label>
+		<output id="result"></output>
+	<p>
+		仿真算法
+		<input type="submit" value="simulation">
+	<p>
+		简洁迭代算法
+		<input type="submit" value="simple">
+</form>
+
+<script>
+var alg
+document.forms[0].onclick = function(evt) {
+	if (evt.target.type === 'submit') alg = evt.target.value
+}
+document.forms[0].onsubmit = function(evt) {
+	var y = this.years.valueAsNumber || parseInt(this.years.value, 10)
+	if (alg === 'simulation') {
+		if (y > 20) alert('仿真算法复杂度是指数级，因此请勿设 n > 20 ')
+		else this.result.value = simulateRabbitsMultiplication(y)
+	} else if (alg === 'simple') {
+		this.result.value = countRabbits(y)
+	}
+	return false
+}
+</script>
