@@ -8,6 +8,8 @@
 
 ### 参考答案 ###
 
-	* simulation.js 以仿真的思路实现，但产生了大量对象并需要遍历所有对象，复杂度是指数级的，效率低下。
+http://hax.github.com/sandbox/rabbits/rabbits.html
 
-	* simple.js 以数组保存每代兔子的个数，以unshift操作加入新生代兔子（亦可改造为使用push操作），复杂度是O(n)，正解。
+* simulation.js 以仿真的思路实现，但产生了大量对象并需要遍历所有对象，复杂度是指数级的，效率低下。
+
+* simple.js 以数组保存每代兔子的个数，以unshift操作加入新生代兔子（亦可改造为使用push操作），复杂度是O(n)，正解。
