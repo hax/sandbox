@@ -1,0 +1,15 @@
+doctype 5
+title BlurForm Demo
+script
+	window.onload = function() {
+		document.forms.login.uid.value = 'hax'
+	}
+form(id="login", method="POST", action="/login")
+	p
+		label(for="uid") User name:
+		input(id="uid", name="uid", type="text", required)
+	p
+		label(for="pwd") Password:
+		input(id="pwd", name="pwd", type="password", required)
+	p
+		input(type="submit", value="let me in!")

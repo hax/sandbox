@@ -1,0 +1,17 @@
+<!doctype html>
+<title>BlurForm Demo</title>
+<script>
+window.onload = function() {
+	document.forms.login.uid.value = 'hax'
+}
+</script>
+<form id="login" method="POST" action="/login">
+	<p>
+		<label for="uid">User name:</label>
+		<input id="uid" name="uid" type="text" required>
+	<p>
+		<label for="pwd">Password:</label>
+		<input id="pwd" name="pwd" type="password" required>
+	<p>
+		<input type="submit" value="let me in!">
+</form>
