@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+<script src="primate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script>
+$(function(){
+	$('li a').click(function(){
+		//console.log('click')
+		alert($(this).text())
+	})
+	$('form input[type=button]').click(function(){
+		//console.log('click')
+		alert(this.value + ' ' + this.id)
+	})
+})
+</script>
+</head>
+<body>
+<!--
+<ul>
+	<li><a href="#" id="a1" class="noguard">test</a>
+	<li><a href="#" id="a2">test</a>
+	<li><a href="#" id="a3">test</a>
+</ul>
+-->
+<form>
+	<input type="button" value="test (noguard)" id="b1" class="noguard">
+	<input type="button" value="test" id="b2">
+	<input type="button" value="test" id="b3" accesskey="k">
+</form>
+
+<select id="machine" onchange="$('#' + this.value).click()" class="noguard">
+	<option>------</option>
+	<!--<option>a1</option>
+	<option>a2</option>
+	<option>a3</option>-->
+	<option>b1</option>
+	<option>b2</option>
+	<option>b3</option>
+</select>
+
+</body>
