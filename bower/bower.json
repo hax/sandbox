@@ -1,0 +1,25 @@
+{
+  "name": "bx-assets",
+  "version": "0.0.0",
+  "homepage": "https://github.com/baixing/haojing",
+  "authors": [
+    "hax <heshijun@baixing.com>"
+  ],
+  "description": "assets of baixing.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "zepto-cmui": "1.*",
+    "underscore.ext": "0.2.*"
+  }
+}
+
+
+

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tabs Demo</title>
+</head>
+<body>
+
+<article id="tabs-demo">
+	<style scoped>
+		section {
+			display: none;
+		}
+		section:target {
+			display: block;
+		}
+
+		section h1 {
+			display: block;
+			position: absolute;
+		}
+	</style>
+	<section id="1">
+		<h1><a href="#1">section 1</a></h1>
+		<div>
+			<p>content of tab 1
+			<p>...
+			<p>...
+			<p>...
+			<p>...
+		</div>
+	</section>
+	<section id="2">
+		<h1><a href="#2">section 2</a></h1>
+		<div>
+			<p>content of tab 2
+			<p>...
+			<p>...
+			<p>...
+		</div>
+	</section>
+	<section id="3">
+		<h1><a href="#3">section 3</a></h1>
+		<p>content of tab 3
+		<p>...
+		<p>...
+		<p>...
+		<p>...
+	</section>
+</article>
+
+</body>
+</html>

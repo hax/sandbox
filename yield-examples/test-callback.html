@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+<title>Callback Style</title>
+<script>
+function generateRandomNumbers(count, min, max) {
+	var a = []
+	for (var i = 0; i < count; i++) a.push(Math.floor(Math.random() * (max - min) + min))
+	console.log('generate %d numbers from %d to %d:', count, min, max, a)
+	return a
+}
+
+function bubbleSort(array) {
+	for (var i = 0; i < array.length; i++) {
+		for (var j = i + 1; j < array.length; j++) {
+			if (array[i] > array[j]) swap()
+		}
+	}
+
+	function swap() {
+		var t = array[i]
+		array[i] = array[j]
+		array[j] = t
+	}
+}
+
+function quickSort(array, start, end) {
+	var pos =
+	for (var i = start + 1; i < end) {
+		if (array[start])
+	}
+}
+
+function bubbleSort2(array, callback, end) {
+
+	var i = 0, j = 1
+	doNext()
+
+	function doNext() {
+		if (j >= array.length) return nextI()
+		if (array[i] > array[j]) {
+			swap()
+			callback(i, j)
+		}
+		j++
+		setTimeout(doNext, 1)
+	}
+
+	function nextI() {
+		i++
+		if (i >= array.length) return end()
+		j = i + 1
+		setTimeout(doNext, 1)
+	}
+
+	function swap() {
+		var t = array[i]
+		array[i] = array[j]
+		array[j] = t
+	}
+}
+
+var numbers
+
+window.addEventListener('DOMContentLoaded', function () {
+
+	var form = document.forms['generate-numbers']
+	form.elements['generateRandomNumbers'].addEventListener('click', function () {
+		numbers = generateRandomNumbers(form.elements['count'].valueAsNumber, form.elements['min'].valueAsNumber, form.elements['max'].valueAsNumber)
+		form.elements['sortNumbers'].disabled = false
+		paintNumbers()
+	})
+	form.elements['sortNumbers'].addEventListener('click', function () {
+		sortNumbers()
+	})
+
+
+	function paintNumbers() {
+		var content = document.getElementById('my-canvas-template').content.cloneNode(true)
+		document.getElementById('visual-numbers').innerHTML = ''
+		document.getElementById('visual-numbers').appendChild(content)
+	}
+
+	function sortNumbers() {
+		bubbleSort2(numbers, function (a, b) {
+			drawBar(a)
+			drawBar(b)
+		}, function () {
+			console.log('sorted: ', numbers)
+		})
+	}
+})
+</script>
+</head>
+
+<body>
+<form id="generate-numbers">
+	<label>generate <input id="count" type="number" value="100"> numbers</label>
+	<label>from <input id="min" type="number" value="1"></label>
+	<label>to <input id="max" type="number" value="1000"></label>
+	<input id="generateRandomNumbers" type="button" value="get it!">
+	<input id="sortNumbers" type="button" value="sort it!" disabled>
+</form>
+<div id="visual-numbers"></div>
+
+
+<template id="my-canvas-template">
+	<style scoped>
+		canvas { border: 1px solid black }
+	</style>
+	<canvas id="my-canvas" height="200"></canvas>
+	<script>
+	var BAR_WIDTH = 10
+	var canvas = document.getElementById('my-canvas')
+	canvas.width = BAR_WIDTH * numbers.length + 1
+	var ctx = canvas.getContext('2d')
+	ctx.scale(1, -1)
+	ctx.translate(0, -200)
+	for (var i = 0; i < numbers.length; i++) drawBar(i)
+
+	function drawBar(i) {
+		ctx.clearRect(i * BAR_WIDTH + 1, 1, BAR_WIDTH - 1, 200)
+		ctx.fillRect(i * BAR_WIDTH + 1, 1, BAR_WIDTH - 1, numbers[i] / 6)
+	}
+	</script>
+</template>
+
+</body>

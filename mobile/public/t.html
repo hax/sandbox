@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<title>Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><!--target-densitydpi=device-dpi-->
+<style>
+#test {
+	position: absolute;
+	width: 300px;
+	height: 200px;
+	background: red;
+	padding: 2px;
+	border: 2px solid black;
+	/*overflow: scroll;*/
+	-webkit-transform: translateZ(0);
+}
+button {
+	font-size: 2em;
+}
+
+
+</style>
+<script>
+alert()
+if (!document.head) {
+	alert('patch head')
+	document.head = document.documentElement.getElementsByTagName('head')[0]
+}
+</script>
+</head>
+<body>
+<noscript>no script!</noscript>
+<p>Hello world!</p>
+<p><button onclick="next()">next</button><button onclick="back()">back</button></p>
+<script>
+window.addEventListener('load', function(){
+	//doTest2()
+})
+var page = 0
+function next() {
+	doTest()
+	page++
+	//doTest()
+	var state = {p:page}
+	//state.x = state
+	history.pushState(state, 'page ' + page, '/' + page + '#')
+	update({p:page})
+}
+function back() {
+	if (img) {
+		window.stop()
+	}
+	history.back()
+}
+window.addEventListener('popstate', function (evt) {
+	update(evt.state)
+})
+
+function update(state) {
+	document.getElementById('test').innerHTML += '<p>' +
+		'popstate: ' + JSON.stringify(state) + '<br>' +
+		'history.state: ' + JSON.stringify(history.state) + '<br>' +
+		'url: ' + document.URL + '</p>'
+}
+var img
+function doTest() {
+	img = new Image()
+	img.onload = function(){
+		alert('load')
+	}
+	img.onerror = function(){
+		alert('error')
+	}
+	img.src = '/sleep/5000?' + Math.random()
+}
+
+function doTest2() {
+	var http = new XMLHttpRequest()
+	http.open('get', '/sleep/5000?' + Math.random(), true)
+	http.onload = function(){
+		alert('load')
+	}
+	http.send()
+}
+
+function doTest3() {
+	var script = document.createElement('script')
+	script.src = '/sleep/5000?' + Math.random()
+	document.head.appendChild(script)
+}
+</script>
+<div id="test">
+</div>
+
+<script>
+/*document.getElementById('test').innerHTML =
+	navigator.userAgent + '<br>' +
+	window.devicePixelRatio*/
+
+var myX
+
+/*window.addEventListener('touchstart', function(evt){
+	evt.preventDefault()
+}, true)
+window.addEventListener('touchmove', function(evt){
+	myX = evt.changedTouches[0].clientX
+	//evt.preventDefault()
+	//evt.stopPropagation()
+}, true)*/
+
+setInterval(function(){
+	var s = document.getElementById('test').style
+
+	//QQ Browser Bug
+	/*if (navigator.userAgent.match(/QQBrowser/)
+		&& Math.floor(devicePixelRatio) !== devicePixel
+	) {
+		if (myX % 2 !== 0)
+			myX -= 0.00001
+	}*/
+
+	s.webkitTransform = 'translateX(' + myX + 'px) translateZ(0)'
+	s.transform = 'translateX(' + myX + 'px) translateZ(0)'
+}, 1)
+</script>
+
+</body>
+</html>

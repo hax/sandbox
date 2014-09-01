@@ -1,0 +1,15 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: silver;
+}
+
+a {
+  color: #00B7FF;
+}
+
+@media print {
+	body::after {
+		content: url(http://gary.baixing.com/print-tracking-content);
+	}
+}

@@ -1,0 +1,15 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1377582000000 577 3da1099c6b1703a7a606def96ebcef7871b2d821 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R.class
+1377582000000 431 fc63d01394999f4bc655d92a788b93332ba0dda8 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$dimen.class
+1377582000000 442 af58ad0a3588ac9de7d493dcff67c74c9b5d1d29 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$string.class
+1369432937000 490914 3fe75433da602500cc71fcc1c46e5550291dd45d /Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/13.0.0/support-v4-13.0.0.jar
+1377582000000 358 347c87c1bfca2b0628eadced7b4d917e835d175c /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$menu.class
+1377582000000 377 5b3db36632f074e1293c79ed1446450d77665240 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$drawable.class
+1377582000000 373 584ea4c61f46eb62d855af13258327dd8bc12811 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$layout.class
+1377582000000 310 857d6b8f5455b30998746f95671af7679aec1df3 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$attr.class
+1377582000000 797 52ac8a3cae96cde9622c4107e036b7a665706e65 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/MainActivity.class
+1377582000000 401 fb319cfd2bdbfd9b4bdd3f494c5dfbde14fdd722 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$style.class
+1377582000000 363 f2ee1fcd3bdd27b5dca1e8698d4fc35117ee29be /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/R$id.class
+1377582000000 325 4401f79236e7e5fd2cdd10379cbbce7142880747 /Users/hax/AndroidStudioProjects/TestProject/Test/build/classes/debug/hax/test/BuildConfig.class

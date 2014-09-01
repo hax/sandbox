@@ -1,0 +1,94 @@
+<!doctype html>
+<script>
+'use strict'
+function getSource() {
+	return new Promise(function (resolve, reject) {
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET', 'jQuery/jquery.js')
+		xhr.onload = function () { resolve(xhr.response) }
+		xhr.onerror = reject
+		xhr.responseType = 'blob'
+		xhr.send()		
+	})
+}
+</script>
+<script src="index.js"></script>
+<script>
+'use strict'
+
+getSource().then(function (source) {
+	test(source)
+	test(source)
+	test(source)
+})
+
+function heavyCalc() {
+	let x = 0
+	for (let i = 0; i < 5; i++) x += Math.sqrt(Math.random() * Math.random())
+	for (let i = 0; i < 5; i++) x -= Math.sqrt(Math.random() * Math.random())
+	return x
+}
+
+function tr1(x) {
+	return x + 1
+}
+
+function tr2(x) {
+	return x - 1
+}
+
+function test(source) {
+	let r1 = new FileReader, r2 = new FileReader
+	r1.onload = function () {
+		console.time('r1')
+		let bytes = new Uint8Array(this.result)
+		let sum1 = 0
+		for (let byte of bytes) { sum1 += tr2(tr1(byte)) }
+		console.log(sum1)
+		console.timeEnd('r1')
+		
+		console.time('r1x')
+		let sum2 = 0
+		for (let i = 0; i < bytes.length; i++) { sum2 += tr2(tr1(bytes[i])) }
+		console.log(sum2)
+		console.timeEnd('r1x')
+		
+		console.time('r1xx')
+		console.log([].map.call(bytes, tr1).map(tr2).
+			reduce(function (a, b) { return a + b }))
+		console.timeEnd('r1xx')
+
+		/*console.time('r1xxx')
+		let sum4 = 0
+		let a = [].slice.call(bytes)
+		for (let i = 0; i < a.length; i++) { sum4 += tr2(tr1(a[i])) }
+		console.log(sum4)
+		console.timeEnd('r1xxx')*/
+	}
+	r2.onload = function () {
+		console.time('r2')
+		let sum1 = 0
+		for (let ch of this.result) { sum1 += tr2(tr1(ch.charCodeAt(0))) }
+		console.log(sum1)
+		console.timeEnd('r2')
+
+		console.time('r2x')
+		let sum2 = 0
+		for (let i = 0; i < this.result.length; i++) { 
+			sum2 += tr2(tr1(this.result.charCodeAt(i))) 
+		}
+		console.log(sum2)
+		console.timeEnd('r2x')
+
+		console.time('r3')
+		let sum3 = 0
+		this.result.replace(/[\s\S]/g, function (m) {
+			sum3 += m.charCodeAt(0)
+		})
+		console.log(sum3)
+		console.timeEnd('r3')
+	}
+	r1.readAsArrayBuffer(source)
+	r2.readAsText(source)
+}
+</script>

@@ -1,0 +1,24 @@
+<!doctype html>
+
+<script>
+var worker = new SharedWorker('worker.js')
+worker.port.onmessage = function (evt) {
+	console.log(evt.data)
+}
+
+worker.onerror = function (e) {
+	console.error(e)
+}
+
+window.addEventListener('load', function (e) {
+	console.log(e.type)
+})
+
+window.addEventListener('pagehide', function (e) {
+	console.log(e.type, e)
+})
+
+window.addEventListener('pageshow', function (e) {
+	console.log(e.type, e)
+})
+</script>

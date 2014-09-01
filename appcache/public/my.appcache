@@ -1,0 +1,15 @@
+CACHE MANIFEST
+
+#v4
+
+/
+/javascripts/test.js
+/stylesheets/style.css
+
+FALLBACK:
+/m/ /offline
+/x/ /offline
+
+NETWORK:
+#*
+

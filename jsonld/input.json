@@ -1,0 +1,451 @@
+{
+	"regularPosts": [
+       {
+            "id": "290615506",
+            "title": "闪电范德萨考虑",
+            "content": null,
+            "categoryNames": "二手,手机及配件",
+            "areaNames": [
+                "上海",
+                "浦东新区",
+                "三林"
+            ],
+            "createdTime": "1385097141",
+            "modifiedTime": "1385097141",
+            "insertedTime": "1384832133",
+            "ip": "192.168.8.200",
+            "cityId": "21",
+            "areaFirstLevelId": "21010",
+            "areaSecondLevelId": "210100033",
+            "status": "0",
+            "imageFlag": "0",
+            "masterNickname": null,
+            "wanted": "0",
+            "手机型号": {
+                "id": "m35545",
+                "name": "苹果/iPhone",
+                "type": "shoujipinpai",
+                "pinyin": "iphone",
+                "parent": {
+                    "id": "m33676"
+                }
+            },
+            "价格": "4321元",
+            "images": [
+
+            ],
+            "具体地点": "",
+            "contact": "13601978158",
+            "token": "15a5695ab9a80f981ce35f6823b499e0",
+            "areaEnglishName": "pudong",
+            "area2EnglishName": "sanlin",
+            "ipArea": "unknown",
+            "mobileArea": "上海",
+            "uniqueMd5": "d41d8cd98f00b204e9800998ecf8427e",
+            "contacts": "13601978158",
+            "urgent": "1385695437",
+            "dingEnd": "1385701941",
+            "countryDingEnd": "1385701941",
+            "user": {
+                "id": "u91733752"
+            },
+            "category": {
+                "id": "shouji",
+                "name": "手机及配件",
+                "orderId": "50",
+                "level": "101",
+                "seoTitle": "二手手机报价|二手手机市场",
+                "shows": "地区,手机型号,价格",
+                "hintKeywords": "{filter} {city} 手机 手机配件",
+                "joinTitle": "{title} - {价格}",
+                "wanted": "转让|求购",
+                "thirdCategory": "手机型号",
+                "viewType": "Table",
+                "dingMeta": "手机型号",
+                "tableViewColumns": "发布时间,地区,标题,价格",
+                "searchs": "关键词",
+                "afsProvider": "google",
+                "objectId": "m35661",
+                "surveyLink": "http://www.surveymonkey.com/s/CB68ZC6",
+                "baiduHintKeywords": "二手手机 智能手机 CDMA手机",
+                "parent": {
+                    "id": "ershou"
+                },
+                "metas": {
+                    "手机型号": {
+
+                    },
+                    "价格": {
+
+                    }
+                },
+                "relatedCategory": [
+
+                ],
+                "filters": {
+                    "1": "手机型号",
+                    "2": "价格"
+                },
+                "relatedMetas": [
+                    ""
+                ]
+            },
+            "area": {
+                "id": "m2217"
+            },
+            "city": {
+                "id": "m30",
+                "type": "city",
+                "name": "上海",
+                "pinyin": "shanghai",
+                "englishName": "shanghai",
+                "oid": "21",
+                "sheng": "直辖市",
+                "aroundCities": {
+                    "kunshan": "m6016",
+                    "taicang": "m6014",
+                    "suzhou": "m149",
+                    "jiaxing": "m190",
+                    "changshu": "m6015",
+                    "nantong": "m150",
+                    "zhangjiagang": "m6013",
+                    "wuxi": "m147"
+                },
+                "latlng": {
+                    "lat": "31.230393",
+                    "lng": "121.473704"
+                },
+                "parent": {
+                    "id": "m0"
+                }
+            }
+        },
+        {
+            "id": "291020345",
+            "title": "feawfewf",
+            "content": "fdasfaesfawf",
+            "categoryNames": "二手,手机及配件",
+            "areaNames": [
+                "上海",
+                "黄浦"
+            ],
+            "createdTime": "1385088523",
+            "modifiedTime": "1385088523",
+            "insertedTime": "1385088523",
+            "ip": "192.168.5.237",
+            "cityId": "21",
+            "areaFirstLevelId": "21001",
+            "areaSecondLevelId": null,
+            "status": "0",
+            "imageFlag": "0",
+            "masterNickname": null,
+            "wanted": "0",
+            "手机型号": {
+                "id": "m34913",
+                "name": "华为",
+                "type": "shoujipinpai",
+                "pinyin": "huawei",
+                "parent": {
+                    "id": "m33676"
+                }
+            },
+            "价格": "111元",
+            "images": [
+
+            ],
+            "具体地点": "",
+            "contact": "13391369002",
+            "token": "fbb90408d55463d549577b19c6dce792",
+            "postMethod": "Normal",
+            "from": "haojing",
+            "source": "",
+            "cityEnglishName": "shanghai",
+            "categoryFirstLevelEnglishName": "ershou",
+            "beforeRules": "",
+            "areaEnglishName": "huangpu",
+            "area2EnglishName": "",
+            "ipArea": "unknown",
+            "mobileArea": "上海",
+            "uniqueMd5": "49e683c0727636f316fcc13f6050285c",
+            "contacts": "13391369002",
+            "fingers": "",
+            "faburen": "",
+            "user": {
+                "id": "u1114566385"
+            },
+            "category": {
+                "id": "shouji",
+                "name": "手机及配件",
+                "orderId": "50",
+                "level": "101",
+                "seoTitle": "二手手机报价|二手手机市场",
+                "shows": "地区,手机型号,价格",
+                "hintKeywords": "{filter} {city} 手机 手机配件",
+                "joinTitle": "{title} - {价格}",
+                "wanted": "转让|求购",
+                "thirdCategory": "手机型号",
+                "viewType": "Table",
+                "dingMeta": "手机型号",
+                "tableViewColumns": "发布时间,地区,标题,价格",
+                "descriptionTips": "建议把手机的功能，成色等详细描述一下， 描述越详细，成交越快！",
+                "searchs": "关键词",
+                "afsProvider": "google",
+                "objectId": "m35661",
+                "surveyLink": "http://www.surveymonkey.com/s/CB68ZC6",
+                "baiduHintKeywords": "二手手机 智能手机 CDMA手机",
+                "shortname": "手机",
+                "baiduClientChannel": "30024088_1_pg|1",
+                "noExternalAds": "0",
+                "searchAutoCompleteMeta": "手机型号",
+                "maxDingPrice": "400",
+                "minDingPrice": "10",
+                "pagesize": "200",
+                "strong": "1",
+                "segment": "0",
+                "GroupHideDatagrid": "0",
+                "dingCateNum": "6",
+                "visibility": "0",
+                "appviewtype": "0",
+                "itemViewKeyMetas": [
+                    "{价格}",
+                    "{手机型号}"
+                ],
+                "testHintKeywords": "{search} {filter} {city} 手机 手机配件",
+                "postQuota": "10",
+                "parent": {
+                    "id": "ershou"
+                },
+                "metas": {
+                    "手机型号": {
+
+                    },
+                    "价格": {
+
+                    }
+                },
+                "relatedCategory": [
+
+                ],
+                "filters": {
+                    "1": "手机型号",
+                    "2": "价格"
+                },
+                "relatedMetas": [
+                    ""
+                ]
+            },
+            "area": {
+                "id": "m7264"
+            },
+            "city": {
+                "id": "m30",
+                "type": "city",
+                "name": "上海",
+                "pinyin": "shanghai",
+                "englishName": "shanghai",
+                "oid": "21",
+                "sheng": "直辖市",
+                "aroundCities": {
+                    "kunshan": "m6016",
+                    "taicang": "m6014",
+                    "suzhou": "m149",
+                    "jiaxing": "m190",
+                    "changshu": "m6015",
+                    "nantong": "m150",
+                    "zhangjiagang": "m6013",
+                    "wuxi": "m147"
+                },
+                "latlng": {
+                    "lat": "31.230393",
+                    "lng": "121.473704"
+                },
+                "parent": {
+                    "id": "m0"
+                }
+            }
+        },
+        {
+            "id": "291019816",
+            "title": "，索尼爱立信 索爱A8i  正品的 保护的很好 没",
+            "content": "，索尼爱立信 索爱A8i  正品的 保护的很好 没有磕碰 单卡 功能全 电阻屏的 3　.5寸的 外观9成新。想要的可以打电话 短信留言不回复哦",
+            "categoryNames": "二手,手机及配件",
+            "areaNames": [
+                "上海"
+            ],
+            "createdTime": "1385048765",
+            "modifiedTime": "1385048765",
+            "insertedTime": "1385048765",
+            "ip": "101.44.177.164",
+            "cityId": "21",
+            "areaFirstLevelId": null,
+            "areaSecondLevelId": null,
+            "status": "0",
+            "imageFlag": "1",
+            "masterNickname": "高明",
+            "价格": "150元",
+            "手机型号": {
+                "id": "m33923",
+                "name": "索尼",
+                "type": "shoujipinpai",
+                "pinyin": "suoniailixin",
+                "parent": {
+                    "id": "m33676"
+                }
+            },
+            "具体地点": "上海浦东金桥6号线金桥站",
+            "contact": "15618228608",
+            "lat": "31.266133",
+            "lng": "121.611248",
+            "wanted": "0",
+            "cityEnglishName": "shanghai",
+            "uuid": "D6340A6A-3C4C-4CA7-8750-B608C008B66C",
+            "brid": "",
+            "ipua": "d114fe5a25f3192d4a9df1e1718ca291",
+            "postMethod": "api_iosbaixing",
+            "categoryFirstLevelEnglishName": "ershou",
+            "areaEnglishName": "shanghai",
+            "area2EnglishName": "",
+            "ipArea": "shanghai",
+            "mobileArea": "上海",
+            "uniqueMd5": "45903dc15f182486ea7caa3019677517",
+            "contacts": "15618228608",
+            "fingers": "",
+            "faburen": "",
+            "dangers": "帐号异常_3 手机端发贴",
+            "rules": "miao43212606",
+            "lastOperation": "直接发布",
+            "MasterCheckDate": "1385084050",
+            "user": {
+                "id": "u66542432"
+            },
+            "category": {
+                "id": "shouji",
+                "name": "手机及配件",
+                "orderId": "50",
+                "level": "101",
+                "seoTitle": "二手手机报价|二手手机市场",
+                "shows": "地区,手机型号,价格",
+                "hintKeywords": "{filter} {city} 手机 手机配件",
+                "joinTitle": "{title} - {价格}",
+                "wanted": "转让|求购",
+                "thirdCategory": "手机型号",
+                "viewType": "Table",
+                "dingMeta": "手机型号",
+                "tableViewColumns": "发布时间,地区,标题,价格",
+                "searchs": "关键词",
+                "afsProvider": "google",
+                "objectId": "m35661",
+                "surveyLink": "http://www.surveymonkey.com/s/CB68ZC6",
+                "baiduHintKeywords": "二手手机 智能手机 CDMA手机",
+                "baiduClientChannel": "30024088_1_pg|1",
+                "noExternalAds": "0",
+                "searchAutoCompleteMeta": "手机型号",
+                "maxDingPrice": "400",
+                "minDingPrice": "10",
+                "pagesize": "200",
+                "strong": "1",
+                "segment": "0",
+                "GroupHideDatagrid": "0",
+                "dingCateNum": "6",
+                "visibility": "0",
+                "appviewtype": "0",
+                "itemViewKeyMetas": [
+                    "{价格}",
+                    "{手机型号}"
+                ],
+                "testHintKeywords": "{search} {filter} {city} 手机 手机配件",
+                "postQuota": "10",
+                "parent": {
+                    "id": "ershou"
+                },
+                "metas": {
+                    "手机型号": {
+
+                    },
+                    "价格": {
+
+                    }
+                },
+                "relatedCategory": [
+
+                ],
+                "filters": {
+                    "1": "手机型号",
+                    "2": "价格"
+                },
+                "relatedMetas": [
+                    ""
+                ]
+            },
+            "area": {
+                "id": "m30",
+                "type": "city",
+                "name": "上海",
+                "pinyin": "shanghai",
+                "englishName": "shanghai",
+                "oid": "21",
+                "sheng": "直辖市",
+                "aroundCities": {
+                    "kunshan": "m6016",
+                    "taicang": "m6014",
+                    "suzhou": "m149",
+                    "jiaxing": "m190",
+                    "changshu": "m6015",
+                    "nantong": "m150",
+                    "zhangjiagang": "m6013",
+                    "wuxi": "m147"
+                },
+                "latlng": {
+                    "lat": "31.230393",
+                    "lng": "121.473704"
+                },
+                "parent": {
+                    "id": "m0"
+                }
+            },
+            "images": [
+                {
+                    "id": "img:c300cd9290eca778dd77df765c3c9524.jpg#up"
+                },
+                {
+                    "id": "img:c9dc35389e5f190466698a7ed73ba505.jpg#up"
+                },
+                {
+                    "id": "img:dcc807e0bf5dd02ba9806db2001938ad.jpg#up"
+                },
+                {
+                    "id": "img:e9440390768155dd1db8ea496e4eadee.jpg#up"
+                },
+                {
+                    "id": "img:441660c22d8fe25013d332ad7689198f.jpg#up"
+                }
+            ],
+            "city": {
+                "id": "m30",
+                "type": "city",
+                "name": "上海",
+                "pinyin": "shanghai",
+                "englishName": "shanghai",
+                "oid": "21",
+                "sheng": "直辖市",
+                "aroundCities": {
+                    "kunshan": "m6016",
+                    "taicang": "m6014",
+                    "suzhou": "m149",
+                    "jiaxing": "m190",
+                    "changshu": "m6015",
+                    "nantong": "m150",
+                    "zhangjiagang": "m6013",
+                    "wuxi": "m147"
+                },
+                "latlng": {
+                    "lat": "31.230393",
+                    "lng": "121.473704"
+                },
+                "parent": {
+                    "id": "m0"
+                }
+            }
+        }
+    ]
+}

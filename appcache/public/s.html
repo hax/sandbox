@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<title>Test Storage</title>
+<script>
+window.onerror = function(e) {
+	alert(e)
+}
+if (window.sessionStorage) {
+	var storage = window.sessionStorage
+	alert(storage.length)
+	storage.removeItem('test')
+	storage.setItem('test', 1)
+	alert(storage.getItem('test'))
+}
+
+</script>
+</head>
+<body>
+<h1>Test Storage</h1>
+<noscript>JavaScript is disabled</noscript>
+<a href="s2.html">s2</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "http-test",
+  "version": "0.1.0",
+  "description": "HTTP testing",
+  "main": "serv.js",
+  "scripts": {
+    "start": "node --harmony ."
+  },
+  "author": "hax <johnhax@gmail.com>",
+  "license": "GPL",
+  "dependencies": {
+    "koa": "~0.6.1",
+    "koa-better-body": "0.0.1",
+    "koa-static": "~1.4.5",
+    "koa-trie-router": "~1.0.5",
+    "ngrok": "~0.1.92",
+    "qrcode-terminal": "^0.9.4"
+  },
+  "engines": { "node": ">=0.11" },
+  "config": {
+    "port": 8779
+  }
+}

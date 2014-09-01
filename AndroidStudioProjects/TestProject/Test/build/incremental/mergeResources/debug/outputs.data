@@ -1,0 +1,13 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1377582000000 340 6ef0546c7a3313cdb84b889c5b8c60c23247d299 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/menu/main.xml
+1377582000000 3156 be9d6d2174e9cbaabca59e8090160434dbd60002 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/drawable-mdpi/ic_launcher.png
+1377582000000 756 6fde15ceb5d88b1b6c5fae51637a2ec6abd866c3 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/layout/activity_main.xml
+1377582000000 9487 7e58a59b9c3cf7a7a1df12376c329591dd31f5e4 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/drawable-xhdpi/ic_launcher.png
+1377582000000 312 62a8ad71d2c75c5d8f36b732e97f1958228a844c /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/values-v11/values.xml
+1377582000000 18087 8d35b7c0e81c9caf7ee547905d69c9542a08b87f /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/drawable-xxhdpi/ic_launcher.png
+1377582000000 6120 ced3785afb467e5670c9c7db0d3a345d15454ea5 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/drawable-hdpi/ic_launcher.png
+1377582000000 1096 9476a6afae4d14cb976ed0aa19303e1423f1be24 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/values/values.xml
+1377582000000 326 d55fc14272933e1169c4187a6d2cd9d737f0e077 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/values-v14/values.xml
+1377582000000 243 b486456f315a304ecc719f3f358cdecb8cc7f722 /Users/hax/AndroidStudioProjects/TestProject/Test/build/res/all/debug/values-sw720dp-land/values.xml

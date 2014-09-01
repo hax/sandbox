@@ -1,0 +1,16 @@
+{
+  "name": "yield-examples",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "HE Shi-Jun <hax@heshijun.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

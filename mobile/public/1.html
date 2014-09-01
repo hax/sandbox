@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-cmn-Hans-x-hax">
+<head>
+<title>Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+body {
+	border: medium solid black;
+	/*background: black;*/
+}
+a {
+	display: inline-block;
+	min-width: 50px;
+	min-height: 40px;
+	border: 1px solid white;
+	border-radius: 0.5em;
+}
+input[type=button] {
+	min-width: 100px;
+	min-height: 50px;
+}
+#image-viewer {
+	background: black;
+	position: fixed;
+	top: 0; left: 0;
+	right: 0; bottom: 0;
+	overflow: hidden;
+	z-index: 1;
+}
+body > footer {
+	position: fixed;
+	height: 60px;
+	bottom: -30px;
+	border: medium solid black;
+}
+#testImg {
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+	-webkit-transform: scale(1, 1);
+	transform: scale(1, 1);
+	max-width: 320px;
+}
+#image-viewer header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	border: 1px solid white;
+	color: white;
+	background: black;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+#image-viewer h1 {
+	text-align: center;
+	margin: 0;
+	font-size: 1.2em;
+}
+#image-viewer nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#image-viewer nav a[rel=up] {
+	float: left;
+}
+#image-viewer nav a[rel=prev],
+#image-viewer nav a[rel=next] {
+	float: right;
+}
+#image-viewer .transform {
+	-webkit-transition-duration: 0s;
+	transition-duration: 0s;
+}
+#image-viewer figure {
+	margin: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+#image-viewer figure img {
+	max-width: 100%;
+	max-height: 100%;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	/*-webkit-transform: translate(-50%, -50%);
+	transform:; translate(-50%, -50%);*/
+}
+#image-viewer figure:nth-of-type(1) {
+	background: maroon;
+}
+#image-viewer figure:nth-of-type(2) {
+	background: green;
+}
+#image-viewer figure:nth-of-type(3) {
+	background: navy;
+}
+#image-viewer .current {
+	/*-webkit-transform: translateZ(0) translateX(0);
+	transform: translateZ(0) translateX(0);*/
+	z-index: 3;
+}
+#image-viewer .prev {
+	-webkit-transform: translateZ(0) translateX(-100%);
+	transform: translateZ(0) translateX(-100%);
+}
+#image-viewer .next {
+	-webkit-transform: translateZ(0) translateX(100%);
+	transform: translateZ(0) translateX(100%);
+}
+#image-viewer .next:first-of-type {
+	/*z-index: 0;*/
+}
+
+</style>
+<script src="/javascripts/log.js"></script>
+</head>
+<body>
+
+<article id="image-viewer" hidden>
+	<header>
+		<h1><data id="total"></data>图之<data id="index"></data></h1>
+		<nav>
+			<a rel="up">返回</a>
+			<a rel="prev">上一张</a>
+			<a rel="next">下一张</a>
+		</nav>
+	</header>
+	<figure class="current"><img></figure>
+	<figure class="next"><img></figure>
+	<figure class="prev"><img></figure>
+</article>
+
+<p>Hello world!
+<p><input id="test-button" type="button" value="button">
+
+<footer>footer</footer>
+
+<script src="/javascripts/psb/dom/CustomEvent.js"></script>
+<script src="/javascripts/touch.js"></script>
+<script src="/javascripts/image-viewer.js"></script>
+
+<script>
+'use strict'
+
+window.scrollBy(0, 0)
+
+void function debug(){
+
+	/*window.addEventListener('touchstart', function(evt){
+		evt.preventDefault()
+	})*/
+
+	;[
+		'click', 'contextmenu', 'DOMActivate',
+		'mousedown', 'mouseup', 'mousemove',
+		//'touchstart', 'touchend', 'touchmove', 'touchcancel',
+		'touchcancel',
+		//'tap', 'flick', 'pan', 'panstart', 'panend',
+	].forEach(function(evtType){
+		window.addEventListener(evtType, logEvent, true)
+	})
+
+
+	function logEvent(evt) {
+		$log('[%d] %s @ %s',
+			evt.timeStamp % 100000, evt.type,
+			evt.target.nodeName, evt.target.id,
+			JSON.stringify(evt, [
+				'changedTouches', 'touches', 'length',
+				'0', '1', '2', '3', //4, 5, 6, 7, 8, 9,
+				'screenX', 'screenY', 'detail',
+				'start', 'end', 'x', 'y',
+				'dx', 'dy',
+			])
+		)
+		//evt.preventDefault()
+	}
+
+	function nodeName(node) {
+		if (node === window)
+			return '#window'
+		else if (!(node instanceof Node))
+			throw TypeError('Illegal Argument: ' + node + ' is not a Node')
+		else if (node.nodeType !== 1 || node === document.documentElement)
+			return node.nodeName
+		else if (['head', 'body'].indexOf(node.tagName) !== -1)
+			return node.tagName
+		else {
+			var s = node.tagName
+			if (node.id) s += '#' + node.id
+			else if (node.classList.length > 0) {
+				s += '.' + [].join.call(node.classList, '.')
+				var list = document.getElementsByClassName(node.className)
+				if (list.length > 1)
+					s += '(' + ([].indexOf.call(list, node) + 1) + ')'
+			} else s = nodeName(node.parentNode) + ' > ' + s
+			return s
+		}
+	}
+}()
+
+void function(){
+
+	var imgViewer = new ImageViewer(document.getElementById('image-viewer'))
+	imgViewer.images = [
+		{src: '/images/IMG_0088.JPG', lowsrc: '/images/IMG_0035.PNG'},
+		{src: '/images/IMG_0154.JPG', lowsrc: '/images/IMG_0035.PNG'},
+		{src: '/images/IMG_0155.JPG', lowsrc: '/images/IMG_0035.PNG'},
+		{src: '/images/IMG_0156.JPG', lowsrc: '/images/IMG_0035.PNG'},
+	]
+
+	var testButton = document.getElementById('test-button')
+	//detectGesture(testButton, ['tap'])
+	testButton.addEventListener('click', function(evt){
+		imgViewer.open()
+		evt.preventDefault()
+	})
+
+}()
+</script>
+
+</body>
+</html>

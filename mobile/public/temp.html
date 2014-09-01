@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<title>Test</title>
+<meta name="viewport" content="width=device-width">
+<style>
+html {
+	font-size: 2rem;
+
+}
+#test {
+	border: 1px solid;
+	-webkit-transform: translateX(20px) translateZ(0);
+	-webkit-transition-duration: 3s;
+}
+.flag#test {
+	-webkit-transform: translateX(80px) translateZ(0);
+	background: red;
+	opacity: 0;
+	pointer-events: none;
+}
+
+</style>
+<body>
+
+<div id="timer"></div>
+<script>
+var ticks = 0, start = Date.now(), time = Date.now()
+setInterval(function(){
+	document.getElementById('timer').innerHTML = ++ticks
+	if (Date.now() - time > 200) {
+		document.getElementById('test').innerHTML += '<p>' + (Date.now() - start)
+	}
+	time = Date.now()
+}, 100)
+</script>
+
+<div id="test" onclick="alert(this.id)">Test</div>
+
+<script>
+//document.write(navigator.userAgent)
+
+function toggle(e) {
+	e.style.webkitTransitionProperty = 'none'
+	e.className = e.className ? '' : 'flag'
+	e.style.webkitTransitionProperty = null
+}
+
+var vendors = ['moz', 'ms', 'webkit']
+
+var hidden = 'hidden',
+	visibilityState = 'visibilityState',
+	visibilitychange = 'visibilitychange'
+
+if ('hidden' in document) {
+} else for (var i = 0, n = vendors.length; i < n; i++) {
+	var v = vendors[i]
+	if ((v + 'Hidden') in document) {
+		hidden = v + 'Hidden'
+		visibilityState = v + 'VisibilityState'
+		visibilitychange = v + 'visibilitychange'
+		break
+	}
+}
+
+document.getElementById('test').innerHTML += [hidden, visibilitychange,
+	document[hidden], document[visibilityState]].join(', ')
+document.addEventListener(visibilitychange, function(event){
+	document.getElementById('test').innerHTML += '<p>' + document[hidden]	
+})
+window.addEventListener('pageshow', function(event){
+	document.getElementById('test').innerHTML += '<p>pageshow'
+})
+window.addEventListener('pageshow', function(event){
+	document.getElementById('test').innerHTML += '<p>pageshow'
+})
+window.addEventListener('pagehide', function(event){
+	document.getElementById('test').innerHTML += '<p>pagehide'
+})
+
+window.addEventListener('focusin', function(event){
+	document.getElementById('test').innerHTML += '<p>focusin'	
+}, true)
+window.addEventListener('focusout', function(event){
+	document.getElementById('test').innerHTML += '<p>focusout'
+}, true)
+window.addEventListener('DOMFocusIn', function(event){
+	document.getElementById('test').innerHTML += '<p>DOMFocusin'	
+}, true)
+window.addEventListener('DOMFocusOut', function(event){
+	document.getElementById('test').innerHTML += '<p>DOMFocusout'
+}, true)
+</script>
+
+<button onclick="toggle(document.getElementById('test'))">toggle</button>
+
+<article>
+	<p>1
+	<p>2
+	<p>3
+</article>
+
+</body>
+</html>
+

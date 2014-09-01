@@ -1,0 +1,24 @@
+{
+  "name": "my-npm",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cnpm": "^0.3.0",
+    "kappa": "^0.14.3",
+    "npm-cache": "^0.1.0",
+    "npm-lazy-mirror": "^0.3.2",
+    "npm-mirror": "^1.4.2",
+    "npm-offline": "0.0.1",
+    "npm-proxy-cache": "^0.2.1",
+    "npm_lazy": "^1.5.0",
+    "sinopia": "^0.8.2",
+    "smart-private-npm": "^1.4.0",
+    "unpm": "^0.4.8"
+  }
+}

@@ -1,0 +1,29 @@
+<script>
+if (!window.console) {
+	window.console = {
+		log: function (message) {
+			alert('' + message)
+		}
+	}
+}
+
+void function () {
+
+
+}()
+
+
+var x = 0
+
+void function () {
+
+	return
+	var x = 1
+	function test(a) {
+		var x = 2
+		return a('x')
+	}
+
+	console.log(test(eval))
+}()
+</script>

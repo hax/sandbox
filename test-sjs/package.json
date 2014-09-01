@@ -1,0 +1,18 @@
+{
+  "name": "test-sjs",
+  "version": "0.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "sjs": "sjs -rc -m ./rand.sjs -m ./fn-macro2.sjs -m ./fn-macro1.sjs -o lib/test.js test.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dev-dependencies": {
+    "sweet.js": "*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sweet.js": "^0.7.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "vhost_sample",
+  "main": "server.js",
+  "dependencies": {
+    "connect": "~2.9.2",
+    "nib": "~1.0.1"
+  }
+}

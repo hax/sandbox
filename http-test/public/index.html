@@ -1,0 +1,73 @@
+<!doctype html>
+
+<meta name="viewport" content="width=device-width">
+<style>
+header {
+	margin: 64px;
+}
+</style>
+<script src="qrcode.min.js" async></script>
+<script>
+window.onload = function () {
+	var xhr = new XMLHttpRequest()
+	xhr.open('get', 'tunnel', true)
+	xhr.onload = function () {
+		var entry = xhr.responseText
+		if (location.origin !== entry) {
+			var a = document.getElementById('qrcode')
+			a.href = entry
+			new QRCode(qrcode, entry)
+		}
+	}
+	xhr.send()
+}
+</script>
+
+<header>
+<a id="qrcode"></a>
+</header>
+
+<h1>HTTP redirecting 测试</h1>
+<form method="post" action="redirect">
+	<label><input name="status" type="radio" value="301">301</label>
+	<label><input name="status" type="radio" value="302">302</label>
+	<label><input name="status" type="radio" value="303">303</label>
+	<label><input name="status" type="radio" value="307">307</label>
+	<label><input name="status" type="radio" value="308">308</label>
+	<input name="test" type="hidden" value="Hello world!">
+	<input type="submit">
+</form>
+
+<form method="get" action="redirect">
+	<label><input name="status" type="radio" value="301">301</label>
+	<label><input name="status" type="radio" value="302">302</label>
+	<label><input name="status" type="radio" value="303">303</label>
+	<label><input name="status" type="radio" value="307">307</label>
+	<label><input name="status" type="radio" value="308">308</label>
+	<input name="test" type="hidden" value="Hello world!">
+	<input type="submit">
+</form>
+
+<form onsubmit="ajax(this)">
+	<script>
+		function ajax(form) {
+			var xhr = new XMLHttpRequest()
+			xhr.open(form._method.value, 'redirect', true)
+			xhr.onload = function () {
+				alert(this.response)
+			}
+			xhr.send(form)
+		}
+	</script>
+	<label><input name="status" type="radio" value="301">301</label>
+	<label><input name="status" type="radio" value="302">302</label>
+	<label><input name="status" type="radio" value="303">303</label>
+	<label><input name="status" type="radio" value="307">307</label>
+	<label><input name="status" type="radio" value="308">308</label>
+	<input name="test" type="hidden" value="Hello world!">
+	<label><input name="_method" type="radio" value="get">GET</label>
+	<label><input name="_method" type="radio" value="post">POST</label>
+	<label><input name="_method" type="radio" value="put">PUT</label>
+	<label><input name="_method" type="radio" value="delete">DELETE</label>
+	<input type="submit">
+</form>
