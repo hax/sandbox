@@ -6,7 +6,7 @@
 <meta http-equiv="Expires" content="-1" />
 <meta http-equiv="Cache-Control" content="no-cache" />
 
-<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1" />
+<meta name="viewport" content="target-densitydpi=device-dpi, user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1, maximum-scale=1" />
 
 <title>Performance Test</title>
 
@@ -32,9 +32,9 @@ body {
 }
 
 #fps {
-	position : absolute ;
+	/*position : absolute ;
 	top : 0px;
-	left : 0px;
+	left : 0px;*/
 	border : 1px solid blue;
 	width : 40px;
 	height : 18px;
@@ -47,10 +47,12 @@ body {
 </style>
 
 <script type="text/javascript" src="base.js"></script>
-<script type="text/javascript" src="hax-core-dev.js"></script>
+<script type="text/javascript" src="hax-core.js"></script>
 
 </head> 
 <body> 
+
+<div id="fps" >FPS</div>
 
 <div id="box">
 <canvas id="canvas">
@@ -58,7 +60,6 @@ body {
 </canvas>
 </div>
 
-<div id="fps" >FPS</div>
 
 </body> 
 </html>
