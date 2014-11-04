@@ -1,0 +1,15 @@
+<!doctype html>
+
+<script>
+//var obj = new Worker('prime.js')
+var obj = new SharedWorker('prime.js').port
+
+function calc(n) {
+	console.time('calc')
+	obj.postMessage(n)
+	obj.onmessage = function (e) {
+		console.log(e.data)
+		console.timeEnd('calc')
+	}
+}
+</script>
