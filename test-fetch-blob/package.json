@@ -1,0 +1,21 @@
+{
+  "name": "test-fetch-blob",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "test": "node test"
+  },
+  "author": "hax",
+  "license": "ISC",
+  "dependencies": {
+    "fetch-blob": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "typescript": "^5.1.6"
+  }
+}
